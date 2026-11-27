@@ -36,7 +36,7 @@ First run creates `instance/portal.db`, `instance/secret.key` and `logs/security
 
 **Validation rules:** Name = letters and spaces only. Email = valid format. Roll number = 10-12 letters or digits. Semester = 1-8. Password = 8-128 characters with a letter and a digit, not a common password.
 
-**Extras beyond the brief:** change password, sign-in activity page (failed attempts visible to the owner), brute-force lockout (5 failures per email+IP in 15 minutes, resets after a successful login), CSRF tokens, Content-Security-Policy and other security headers, generic login error and equal-time check for unknown emails, log-injection protection, 16 KB request limit, dark mode, mobile layout, keyboard and screen-reader support.
+**Extras beyond the brief:** change password, sign-in activity page (failed attempts visible to the owner), brute-force lockout (5 failures per email + IP in 15 minutes, resets after a successful login), CSRF tokens, Content Security Policy and other security headers, generic login error and equal-time check for unknown emails, log-injection protection, 16 KB request limit, dark mode, mobile layout, keyboard and screen-reader support.
 
 ## Project layout
 ```
