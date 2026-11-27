@@ -1,0 +1,6 @@
+{% extends "app_base.html" if session.get('uid') else "auth_base.html" %}
+{% block title %}{{ title }} - Student Portal{% endblock %}
+{% block aside_title %}Something is off with that request.{% endblock %}
+{% block content %}{{ self.err() }}{% endblock %}
+{% block panel %}{{ self.err() }}{% endblock %}
+{% block err %}<div class="errorbox"><div class="errorcode">{{ code }}</div><h1>{{ title }}</h1><p class="lead">{{ msg }}</p><a class="btn" href="{{ url_for('index') }}">Go to start</a></div>{% endblock %}

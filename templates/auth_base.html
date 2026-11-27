@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="auth">
+  <aside class="auth-aside">
+    <a class="brand" href="{{ url_for('index') }}">Student Portal</a>
+    <div>
+      <h2 class="aside-title">{% block aside_title %}Your student record, kept private.{% endblock %}</h2>
+      <ul class="protect">
+        <li><strong>Passwords stay secret.</strong>They are stored as one-way hashes, never as readable text.</li>
+        <li><strong>Idle sessions end.</strong>You are signed out after {{ timeout_min }} minutes without activity.</li>
+        <li><strong>Guessing is blocked.</strong>{{ max_fails }} wrong passwords lock sign-in for {{ lock_min }} minutes.</li>
+      </ul>
+    </div>
+    <p class="aside-foot">Every sign-in attempt is recorded, and you can review yours after you sign in.</p>
+  </aside>
+  <main id="main" class="auth-main"><div class="auth-box">{% include "_flashes.html" %}{% block panel %}{% endblock %}</div></main>
+</div>
+{% endblock %}

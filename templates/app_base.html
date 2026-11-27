@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block body %}
+<header class="topbar">
+  <a class="brand" href="{{ url_for('profile') }}">Student Portal</a>
+  <nav aria-label="Main">
+    {% for ep, label in [('profile','Profile'),('edit_profile','Edit profile'),('change_password','Password'),('activity','Activity')] %}
+    <a href="{{ url_for(ep) }}"{% if request.endpoint == ep %} aria-current="page"{% endif %}>{{ label }}</a>{% endfor %}
+  </nav>
+  <div class="session">
+    <span class="chip" title="Time until automatic sign-out">Session ends in <b data-countdown>{{ '%02d:%02d' % (seconds_left // 60, seconds_left % 60) }}</b></span>
+    <form method="post" action="{{ url_for('logout') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="btn ghost" type="submit">Sign out</button></form>
+  </div>
+</header>
+<main id="main" class="page">{% include "_flashes.html" %}{% block content %}{% endblock %}</main>
+<dialog id="timeout-dialog" aria-labelledby="td-title">
+  <h2 id="td-title">Still there?</h2>
+  <p>You will be signed out in <b data-dialog-countdown>60</b> seconds to keep your account safe.</p>
+  <div class="dialog-actions">
+    <button class="btn" type="button" data-extend>Stay signed in</button>
+    <form class="inline" method="post" action="{{ url_for('logout') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="btn ghost" type="submit">Sign out now</button></form>
+  </div>
+</dialog>
+{% endblock %}

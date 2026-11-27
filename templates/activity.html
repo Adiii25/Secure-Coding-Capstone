@@ -1,0 +1,6 @@
+{% extends "app_base.html" %}
+{% block title %}Sign-in activity - Student Portal{% endblock %}
+{% block content %}
+<h1>Sign-in activity</h1><p class="lead">The last 25 attempts on {{ user.email }}. If you see a failed attempt you do not recognise, change your password.</p>
+<section class="panel">{% include "_activity_table.html" %}</section>
+{% endblock %}

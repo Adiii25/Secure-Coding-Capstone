@@ -1,0 +1,36 @@
+{% extends "app_base.html" %}
+{% block title %}My profile - Student Portal{% endblock %}
+{% block content %}
+{% set parts = user.name.split() %}
+<div class="profile">
+  <section class="id-card br-{{ user.branch|lower }}" aria-label="Student ID card">
+    <span class="id-slot"></span>
+    <span class="id-org">Student Portal ID</span>
+    <div class="avatar" aria-hidden="true">{{ (parts[0][0] ~ (parts[-1][0] if parts|length > 1 else ''))|upper }}</div>
+    <h1>{{ user.name }}</h1>
+    <p class="id-sub">{{ user.branch }}, semester {{ user.semester }}</p>
+    <div class="barcode" aria-hidden="true">{% for w in user.roll_number|bars %}<i class="w{{ w }}"></i>{% endfor %}</div>
+    <p class="id-roll">{{ user.roll_number }}</p>
+  </section>
+  <div>
+    <section class="panel">
+      <h2>Your details</h2><br>
+      <dl>
+        <dt>Email</dt><dd>{{ user.email }}</dd>
+        <dt>Roll number</dt><dd>{{ user.roll_number }}</dd>
+        <dt>Branch</dt><dd>{{ user.branch }}</dd>
+        <dt>Semester</dt><dd>{{ user.semester }}</dd>
+        <dt>Gender</dt><dd>{{ user.gender }}</dd>
+        <dt>Member since</dt><dd>{{ user.created_at[:10] }}</dd>
+        {% if user.updated_at %}<dt>Last updated</dt><dd>{{ user.updated_at }} UTC</dd>{% endif %}
+      </dl>
+      <div class="actions"><a class="btn" href="{{ url_for('edit_profile') }}">Edit profile</a><a class="btn ghost" href="{{ url_for('change_password') }}">Change password</a></div>
+    </section>
+    <section class="panel">
+      <h2>Recent sign-in activity</h2><br>
+      {% include "_activity_table.html" %}
+      <a class="more" href="{{ url_for('activity') }}">View all activity</a>
+    </section>
+  </div>
+</div>
+{% endblock %}

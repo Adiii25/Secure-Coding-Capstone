@@ -1,0 +1,16 @@
+{% extends "app_base.html" %}{% from "_forms.html" import field, select, summary %}
+{% block title %}Edit profile - Student Portal{% endblock %}
+{% block content %}
+<h1>Edit profile</h1><p class="lead">You can change your name, branch, semester and gender.</p>
+<section class="panel narrow">
+  <div class="readonly"><b>{{ user.email }}</b>Roll number {{ user.roll_number }}. Email and roll number cannot be changed here.</div>
+  {{ summary(errors) }}
+  <form method="post" novalidate data-validate>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    {{ field('name', 'Full name', form, errors, autocomplete='name', rule='name', maxlength=60, hint='Letters and spaces only', autofocus=true) }}
+    <div class="row">{{ select('branch', 'Branch', v.BRANCHES, form, errors) }}{{ select('semester', 'Semester', v.SEMESTERS, form, errors) }}</div>
+    {{ select('gender', 'Gender', v.GENDERS, form, errors) }}
+    <div class="actions"><button class="btn" type="submit">Save changes</button><a class="btn ghost" href="{{ url_for('profile') }}">Cancel</a></div>
+  </form>
+</section>
+{% endblock %}

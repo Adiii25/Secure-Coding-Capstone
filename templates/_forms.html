@@ -1,0 +1,28 @@
+{% macro field(name, label, form, errors, type='text', hint='', rule='', maxlength='', autocomplete='off', password=false, meter=false, autofocus=false) %}
+{% set err = errors.get(name) %}
+<div class="field">
+  <label for="{{ name }}">{{ label }}</label>
+  <div class="control">
+    <input id="{{ name }}" name="{{ name }}" type="{{ type }}"{% if not password %} value="{{ form.get(name, '') }}"{% endif %}{% if maxlength %} maxlength="{{ maxlength }}"{% endif %} autocomplete="{{ autocomplete }}"{% if rule %} data-rule="{{ rule }}"{% endif %} aria-describedby="{{ name }}-msg" placeholder=" "{% if err %} aria-invalid="true"{% endif %}{% if autofocus or err %} autofocus{% endif %} required>
+    {% if password %}<button type="button" class="reveal" data-reveal="{{ name }}" aria-label="Show {{ label|lower }}">Show</button>{% endif %}
+  </div>
+  {% if meter %}<div class="meter" data-meter="{{ name }}" aria-hidden="true"><span></span><span></span><span></span><span></span></div>{% endif %}
+  <p class="msg{% if err %} err{% endif %}" id="{{ name }}-msg" data-hint="{{ hint }}">{{ err or hint }}</p>
+</div>
+{% endmacro %}
+
+{% macro select(name, label, options, form, errors, autofocus=false) %}
+{% set err = errors.get(name) %}
+<div class="field">
+  <label for="{{ name }}">{{ label }}</label>
+  <select id="{{ name }}" name="{{ name }}" data-rule="choice" aria-describedby="{{ name }}-msg"{% if err %} aria-invalid="true"{% endif %}{% if autofocus or err %} autofocus{% endif %} required>
+    <option value="">Choose one</option>
+    {% for o in options %}<option value="{{ o }}"{% if form.get(name)|string == o|string %} selected{% endif %}>{{ o }}</option>{% endfor %}
+  </select>
+  <p class="msg{% if err %} err{% endif %}" id="{{ name }}-msg" data-hint="">{{ err or '' }}</p>
+</div>
+{% endmacro %}
+
+{% macro summary(errors) %}
+{% if errors %}<div class="summary" role="alert"><p>Fix {{ errors|length }} {{ 'field' if errors|length == 1 else 'fields' }} to continue:</p><ul>{% for m in errors.values() %}<li>{{ m }}</li>{% endfor %}</ul></div>{% endif %}
+{% endmacro %}

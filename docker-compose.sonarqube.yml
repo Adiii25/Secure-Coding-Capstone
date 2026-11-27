@@ -1,0 +1,12 @@
+# Local SonarQube for static analysis:  docker compose -f docker-compose.sonarqube.yml up -d
+# Then open http://localhost:9000 (admin / admin) and follow docs/SECURITY_TESTING.md
+services:
+  sonarqube:
+    image: sonarqube:community
+    ports: ["9000:9000"]
+    volumes:
+      - sonar_data:/opt/sonarqube/data
+      - sonar_extensions:/opt/sonarqube/extensions
+volumes:
+  sonar_data:
+  sonar_extensions:

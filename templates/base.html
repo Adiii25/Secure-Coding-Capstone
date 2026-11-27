@@ -1,0 +1,8 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark">
+<title>{% block title %}Student Portal{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"><script src="{{ url_for('static', filename='app.js') }}" defer></script></head>
+<body{% if seconds_left is not none %} data-expires="{{ seconds_left }}" data-csrf="{{ csrf_token() }}"{% endif %}>
+<a class="skip" href="#main">Skip to content</a>
+{% block body %}{% endblock %}
+</body></html>
